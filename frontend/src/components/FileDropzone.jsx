@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { FileText, Upload, X, FileCheck, AlertCircle, RefreshCw, Edit3 } from 'lucide-react'
+import { FileText, Upload, X, FileCheck, AlertCircle, RefreshCw, Edit3, Sparkles } from 'lucide-react'
 
 const MAX_SIZE = 10 * 1024 * 1024 // 10 MB
 
 /**
- * Compact drag-and-drop file upload zone in Light Olive Green & Dark Green theme.
+ * Enhanced, vibrant drag-and-drop file upload zone.
  */
 export default function FileDropzone({
   onFile,
@@ -45,33 +45,40 @@ export default function FileDropzone({
     <div className="w-full h-full flex flex-col justify-center">
       <div
         {...getRootProps()}
-        className={`relative border-2 border-dashed rounded-xl p-5 sm:p-6 text-center cursor-pointer transition-all flex flex-col items-center justify-center min-h-[170px]
+        className={`relative border-2 border-dashed rounded-2xl p-6 text-center cursor-pointer transition-all duration-200 flex flex-col items-center justify-center min-h-[180px] shadow-xs
           ${
             isDragActive
-              ? 'border-[#245828] bg-[#e3f0e0] scale-[1.01]'
-              : 'border-[#9bbd95] hover:border-[#4d7f47] bg-[#f4f9f2]'
+              ? 'border-[#245828] bg-gradient-to-b from-[#e3f2e0] to-[#d6ebd3] scale-[1.01] shadow-md ring-2 ring-[#3b7c3f]/20'
+              : 'border-[#91b88a] hover:border-[#2f6f34] bg-gradient-to-b from-[#ffffff]/90 via-[#f8fcf7]/95 to-[#eff7ec]/90 hover:shadow-sm'
           }
-          ${loading ? 'opacity-60 cursor-not-allowed' : ''}
-          ${file && !error ? 'border-[#558e50] bg-[#e8f4e5]' : ''}
-          ${error ? 'border-red-400 bg-red-50' : ''}
+          ${loading ? 'opacity-70 cursor-not-allowed' : ''}
+          ${file && !error ? 'border-[#3f803a] bg-gradient-to-b from-[#f2faf0] to-[#e6f4e3] shadow-xs' : ''}
+          ${error ? 'border-red-400 bg-red-50/80' : ''}
         `}
       >
         <input {...getInputProps()} />
 
         {loading ? (
-          <div className="flex flex-col items-center gap-2.5">
-            <div className="w-9 h-9 border-3 border-[#245828] border-t-transparent rounded-full animate-spin" />
-            <p className="text-sm text-[#1b431e] font-semibold">Extracting resume content...</p>
-            <p className="text-xs text-[#527450]">Running PyMuPDF parsing engine...</p>
+          <div className="flex flex-col items-center gap-3">
+            <div className="relative">
+              <div className="w-10 h-10 border-3 border-[#245828] border-t-transparent rounded-full animate-spin" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Sparkles size={14} className="text-[#245828] animate-pulse" />
+              </div>
+            </div>
+            <div>
+              <p className="text-sm text-[#143d17] font-extrabold">Extracting Resume Content...</p>
+              <p className="text-xs text-[#4b6f48] font-medium mt-0.5">Running PyMuPDF parsing engine</p>
+            </div>
           </div>
         ) : error ? (
-          <div className="flex flex-col items-center gap-2">
-            <div className="p-2.5 rounded-full bg-red-100 text-red-600 border border-red-200">
+          <div className="flex flex-col items-center gap-2.5">
+            <div className="p-2.5 rounded-full bg-red-100 text-red-700 border border-red-200 shadow-2xs">
               <AlertCircle size={24} />
             </div>
             <div>
-              <p className="font-semibold text-red-800 text-xs sm:text-sm">Extraction Failed</p>
-              <p className="text-xs text-red-700 mt-0.5 max-w-xs mx-auto line-clamp-2">{error}</p>
+              <p className="font-extrabold text-red-800 text-sm">Extraction Failed</p>
+              <p className="text-xs text-red-700 mt-0.5 max-w-xs mx-auto line-clamp-2 font-medium">{error}</p>
             </div>
             <div className="flex items-center gap-2 mt-1">
               <button
@@ -80,7 +87,7 @@ export default function FileDropzone({
                   e.stopPropagation()
                   onClear?.()
                 }}
-                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#e4ede1] hover:bg-[#d6e4d2] border border-[#a6c2a1] text-xs text-[#1c431e] font-medium transition"
+                className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white hover:bg-[#f0f6ee] border border-[#a2c39d] text-xs text-[#1c431e] font-bold transition shadow-2xs"
               >
                 <RefreshCw size={12} /> Retry
               </button>
@@ -91,7 +98,7 @@ export default function FileDropzone({
                     e.stopPropagation()
                     onSwitchToText()
                   }}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#245828] hover:bg-[#327037] text-xs text-white font-medium transition shadow-xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-[#245828] hover:bg-[#2f6f34] text-xs text-white font-bold transition shadow-xs"
                 >
                   <Edit3 size={12} /> Paste text directly
                 </button>
@@ -99,15 +106,18 @@ export default function FileDropzone({
             </div>
           </div>
         ) : file ? (
-          <div className="flex flex-col items-center gap-2">
-            <div className="p-2.5 rounded-full bg-[#d6ebd3] border border-[#7ca977] text-[#1a4b1e]">
-              <FileCheck size={26} />
+          <div className="flex flex-col items-center gap-2.5">
+            <div className="p-3 rounded-2xl bg-gradient-to-br from-[#d4ecd0] to-[#bce1b7] border border-[#6ea667] text-[#0f3f13] shadow-xs">
+              <FileCheck size={28} />
             </div>
-            <div>
-              <p className="font-bold text-[#143217] text-xs sm:text-sm">{file.name}</p>
-              <p className="text-[11px] text-[#4d6d4a] mt-0.5">
-                {(file.size / 1024).toFixed(1)} KB • Ready for alignment analysis
-              </p>
+            <div className="space-y-0.5">
+              <p className="font-black text-[#112f14] text-sm tracking-tight">{file.name}</p>
+              <div className="flex items-center justify-center gap-2 text-[11px] text-[#3e603b] font-medium">
+                <span className="px-2 py-0.5 rounded-full bg-[#d6ecd2] border border-[#91c28b] font-bold text-[#144218]">
+                  {(file.size / 1024).toFixed(1)} KB
+                </span>
+                <span>• Ready for AI alignment</span>
+              </div>
             </div>
             <button
               type="button"
@@ -115,45 +125,54 @@ export default function FileDropzone({
                 e.stopPropagation()
                 onClear?.()
               }}
-              className="flex items-center gap-1 text-[11px] text-[#557852] hover:text-red-600 transition mt-0.5 font-medium"
+              className="inline-flex items-center gap-1 text-[11px] font-bold text-[#456942] hover:text-red-700 transition mt-1"
             >
-              <X size={12} /> Remove or replace file
+              <X size={12} /> Remove or replace document
             </button>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center gap-2.5">
             <div
-              className={`p-2.5 rounded-full transition-colors ${
-                isDragActive ? 'bg-[#cbe5c7] text-[#1a441e]' : 'bg-[#e3eee0] text-[#245828] border border-[#a4c29e]'
+              className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200 ${
+                isDragActive
+                  ? 'bg-[#245828] text-white shadow-md scale-110'
+                  : 'bg-gradient-to-br from-[#ffffff] to-[#e5f2e2] text-[#1b4b20] border border-[#a2c89d] shadow-2xs'
               }`}
             >
               {isDragActive ? (
-                <Upload size={24} className="animate-bounce text-[#1b431e]" />
+                <Upload size={24} className="animate-bounce" />
               ) : (
-                <FileText size={24} />
+                <Upload size={22} />
               )}
             </div>
-            <div>
-              <p className="font-bold text-[#143217] text-xs sm:text-sm">
-                {isDragActive ? 'Drop resume here!' : 'Drag & drop candidate resume'}
+            <div className="space-y-0.5">
+              <p className="font-extrabold text-[#112f14] text-sm">
+                {isDragActive ? 'Drop resume here!' : 'Drag & drop candidate resume here'}
               </p>
-              <p className="text-[11px] text-[#52744f] mt-0.5">PDF or DOCX • Max 10 MB</p>
+              <p className="text-[11px] text-[#4d714a] font-medium">
+                Supported formats: PDF or DOCX (Max 10 MB)
+              </p>
             </div>
-            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-[#e3ece0] border border-[#9ebf99] text-[#1c451f] font-medium shadow-2xs">
-              or click to browse file
-            </span>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-[#1c471f] via-[#245a27] to-[#2c6c31] hover:from-[#235827] hover:to-[#38843c] text-white text-xs font-bold shadow-xs transition-all">
+                Browse Document
+              </span>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-[#3c5e39] px-2 py-1 rounded-md bg-[#e4efe1] border border-[#b4d0b1]">
+                PDF / DOCX
+              </span>
+            </div>
           </div>
         )}
       </div>
 
       {sizeError && (
-        <p className="text-xs text-red-600 flex items-center gap-1 mt-1">
-          <AlertCircle size={12} /> File exceeds 10 MB limit.
+        <p className="text-xs text-red-600 font-bold flex items-center gap-1 mt-1.5">
+          <AlertCircle size={13} /> File exceeds 10 MB limit.
         </p>
       )}
       {typeError && (
-        <p className="text-xs text-red-600 flex items-center gap-1 mt-1">
-          <AlertCircle size={12} /> Only PDF and DOCX files are accepted.
+        <p className="text-xs text-red-600 font-bold flex items-center gap-1 mt-1.5">
+          <AlertCircle size={13} /> Only PDF and DOCX files are supported.
         </p>
       )}
     </div>
