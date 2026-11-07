@@ -62,3 +62,25 @@ SECRET_KEY=generate-a-secure-random-key-for-production
   - NVIDIA T4 (16GB VRAM) or RTX 3060/4060 (12GB+ VRAM).
   - Use 4-bit NormalFloat (NF4) quantization via BitsAndBytes.
 
+---
+
+## 5. Render Cloud Deployment
+
+ResumeFit AI includes a native Render Blueprint (`render.yaml`) that deploys both the FastAPI Backend and the React Frontend simultaneously.
+
+### Option A: 1-Click Blueprint (Recommended)
+1. Push this repository to GitHub (`git push -u origin master`).
+2. Log in to [Render](https://dashboard.render.com/).
+3. Click **New +** -> **Blueprint**.
+4. Select your GitHub repository.
+5. Render reads `render.yaml` and provisions:
+   - **`resumefit-backend`**: Python 3.11 web service with automatic health checks (`/api/health`).
+   - **`resumefit-frontend`**: Static Site with SPA redirect rules and automatic `VITE_API_URL` linking.
+6. Click **Apply**. Both services will build and go live in ~2 minutes!
+
+### Option B: Single Web Service (All-in-One)
+FastAPI is pre-configured to serve the compiled frontend (`frontend/dist`) directly from the root route `/`:
+1. **Build Command**: `pip install -r backend/requirements.txt && cd frontend && npm install && npm run build && cd ..`
+2. **Start Command**: `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`
+3. Visiting your Render URL opens the web app directly without any cross-origin configuration needed.
+

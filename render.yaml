@@ -1,0 +1,56 @@
+# ==============================================================
+# ResumeFit AI — Render Blueprint Deployment Specification
+# ==============================================================
+# Deploy both Backend (FastAPI Web Service) and Frontend (Static Site)
+# in one click using Render's Infrastructure as Code.
+# ==============================================================
+
+services:
+  # ------------------------------------------------------------
+  # 1. Backend Web Service (FastAPI + Python 3.11)
+  # ------------------------------------------------------------
+  - type: web
+    name: resumefit-backend
+    runtime: python
+    region: oregon
+    plan: free
+    branch: master
+    rootDir: backend
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DATABASE_URL
+        value: sqlite+aiosqlite:///./resumefit.db
+      - key: USE_FINE_TUNED_MODEL
+        value: "false"
+      - key: ENVIRONMENT
+        value: production
+      - key: CORS_ORIGINS
+        value: '["*"]'
+      - key: MAX_FILE_SIZE_MB
+        value: "10"
+
+  # ------------------------------------------------------------
+  # 2. Frontend Static Site (React 18 + Vite + Tailwind CSS)
+  # ------------------------------------------------------------
+  - type: static
+    name: resumefit-frontend
+    region: oregon
+    plan: free
+    branch: master
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: resumefit-backend
+          type: web
+          property: host

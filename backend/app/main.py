@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import AsyncGenerator
 
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.endpoints import ml_service, router
 from app.core.config import settings
@@ -60,17 +62,31 @@ app.add_middleware(
 app.include_router(router, prefix="/api")
 app.include_router(router, prefix="/api/v1")
 
+# Mount frontend static distribution if available (allows single-service full-stack deployment on Render)
+dist_dir = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
+if dist_dir.exists() and (dist_dir / "index.html").exists():
+    app.mount("/assets", StaticFiles(directory=str(dist_dir / "assets")), name="assets")
 
-@app.get("/")
-def root():
-    """Root status endpoint."""
-    return {
-        "app": settings.APP_NAME,
-        "version": settings.VERSION,
-        "status": "online",
-        "docs": "/docs",
-        "health": "/api/health",
-    }
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Do not intercept API or documentation routes
+        if full_path.startswith("api") or full_path in ("docs", "redoc", "openapi.json"):
+            return JSONResponse(status_code=404, content={"detail": "Not found"})
+        target_file = dist_dir / full_path
+        if target_file.is_file():
+            return FileResponse(str(target_file))
+        return FileResponse(str(dist_dir / "index.html"))
+else:
+    @app.get("/")
+    def root():
+        """Root status endpoint."""
+        return {
+            "app": settings.APP_NAME,
+            "version": settings.VERSION,
+            "status": "online",
+            "docs": "/docs",
+            "health": "/api/health",
+        }
 
 
 @app.exception_handler(Exception)
