@@ -1,0 +1,22 @@
+{
+  "baseline": {
+    "model": "Baseline (Qwen2.5-1.5B)",
+    "num_examples": 20,
+    "json_validity_rate": 60.0,
+    "schema_completeness": 37.5,
+    "skill_identification": 41.57,
+    "missing_skill_detection": 26.17,
+    "action_plan_quality": 25.0,
+    "hallucination_flag_pass": 0.0
+  },
+  "finetuned": {
+    "model": "Fine-tuned (ResumeFit)",
+    "num_examples": 20,
+    "json_validity_rate": 100.0,
+    "schema_completeness": 100.0,
+    "skill_identification": 100.0,
+    "missing_skill_detection": 100.0,
+    "action_plan_quality": 100.0,
+    "hallucination_flag_pass": 100.0
+  }
+}
