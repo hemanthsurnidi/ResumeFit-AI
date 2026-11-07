@@ -14,7 +14,6 @@ services:
     runtime: python
     region: oregon
     plan: free
-    branch: master
     rootDir: backend
     buildCommand: pip install --upgrade pip && pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT --workers 1
@@ -40,7 +39,6 @@ services:
     name: resumefit-frontend
     region: oregon
     plan: free
-    branch: master
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
@@ -54,3 +52,4 @@ services:
           name: resumefit-backend
           type: web
           property: host
+
