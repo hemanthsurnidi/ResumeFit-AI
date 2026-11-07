@@ -89,7 +89,7 @@ def validate_upload(filename: str, file_bytes: bytes, allowed_extensions: List[s
     validate_file_size(len(file_bytes), max_bytes)
     logger.debug(
         "File validation passed",
-        extra={"filename": filename, "size_bytes": len(file_bytes), "ext": ext},
+        extra={"doc_filename": filename, "size_bytes": len(file_bytes), "ext": ext},
     )
     return ext
 

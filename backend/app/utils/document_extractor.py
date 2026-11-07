@@ -220,7 +220,7 @@ def extract_text(file_bytes: bytes, filename: str) -> dict:
     logger.info(
         "Text extraction complete",
         extra={
-            "filename": filename,
+            "doc_filename": filename,
             "pages": result["pages"],
             "word_count": result["word_count"],
             "method": result["extraction_method"],
