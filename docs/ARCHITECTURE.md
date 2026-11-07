@@ -40,3 +40,4 @@ ResumeFit AI is an end-to-end machine learning platform combining open-weight La
 - **Styling**: Tailwind CSS v4.
 - **Routing**: React Router DOM with dedicated pages for Dashboard, Workspace, Scorecard Results, History, Model Details, Evaluation Comparison, and Settings.
 - **Visuals**: Animated circular ScoreRings, before/after bullet comparison cards, and interactive delta pills.
+

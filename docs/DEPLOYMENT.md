@@ -61,3 +61,4 @@ SECRET_KEY=generate-a-secure-random-key-for-production
 - **GPU (Recommended for Full 1.5B/7B LLM Inference)**:
   - NVIDIA T4 (16GB VRAM) or RTX 3060/4060 (12GB+ VRAM).
   - Use 4-bit NormalFloat (NF4) quantization via BitsAndBytes.
+
