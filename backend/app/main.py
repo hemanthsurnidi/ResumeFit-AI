@@ -73,6 +73,11 @@ dist_dir = Path(__file__).resolve().parent.parent.parent / "frontend" / "dist"
 if dist_dir.exists() and (dist_dir / "index.html").exists():
     app.mount("/assets", StaticFiles(directory=str(dist_dir / "assets")), name="assets")
 
+    @app.get("/")
+    async def serve_root():
+        """Serve the frontend single-page application root."""
+        return FileResponse(str(dist_dir / "index.html"))
+
     @app.get("/{full_path:path}")
     async def serve_spa(full_path: str):
         # Do not intercept API or documentation routes
