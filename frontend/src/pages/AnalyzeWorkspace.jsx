@@ -21,7 +21,7 @@ import { uploadResume, analyzeResume } from '../services/api'
 
 const SAMPLE_PRESETS = [
   {
-    name: 'Senior ML / AI Engineer',
+    name: 'Sample ML Engineer',
     icon: Cpu,
     role: 'Senior Machine Learning Engineer',
     resume: `ALEX RIVERA
@@ -68,7 +68,7 @@ Requirements:
 - Strong knowledge of evaluation metrics for generative models and benchmark evaluation.`,
   },
   {
-    name: 'Senior Full-Stack Developer',
+    name: 'Sample Full-Stack Dev',
     icon: Code2,
     role: 'Senior Full-Stack Developer',
     resume: `JORDAN LEE
@@ -131,17 +131,17 @@ export default function AnalyzeWorkspace() {
     setFile(selectedFile)
     setUploading(true)
     setUploadError(null)
-    const toastId = toast.loading(`Uploading & extracting "${selectedFile.name}"...`)
+    const toastId = toast.loading(`Reading "${selectedFile.name}"...`)
     try {
       const res = await uploadResume(selectedFile)
       const text = res.data.full_text || res.data.text || res.data.extracted_text_preview || ''
       if (!text.trim()) {
-        throw new Error('No readable text could be extracted from this file. Try copying and pasting your resume directly.')
+        throw new Error('Could not find readable text in this file. Please copy and paste your resume text directly.')
       }
       setResumeText(text)
       setUploadError(null)
       const wordCount = res.data.word_count || text.split(/\s+/).filter(Boolean).length
-      toast.success(`Extracted ${wordCount} words from ${selectedFile.name}`, {
+      toast.success(`Found ${wordCount} words in ${selectedFile.name}`, {
         id: toastId,
       })
     } catch (err) {
@@ -149,7 +149,7 @@ export default function AnalyzeWorkspace() {
         err.response?.data?.detail ||
         err.userMessage ||
         err.message ||
-        'Failed to extract resume text. Please check the file format or paste the text directly.'
+        'Could not read the resume file. Please try pasting the text directly into the text box.'
       setUploadError(msg)
       setResumeText('')
       toast.error(msg, { id: toastId, duration: 6000 })
@@ -165,7 +165,7 @@ export default function AnalyzeWorkspace() {
     setActiveTab('text')
     setFile(null)
     setUploadError(null)
-    toast.success(`Loaded "${preset.name}" preset!`)
+    toast.success(`Loaded "${preset.name}"!`)
   }
 
   const handleClearAll = () => {
@@ -174,14 +174,14 @@ export default function AnalyzeWorkspace() {
     setJobDescription('')
     setTargetRole('')
     setUploadError(null)
-    toast.success('Workspace cleared.')
+    toast.success('Fields cleared.')
   }
 
   const handleRunAnalysis = async () => {
     if (analyzing || uploading) return
 
     if (!resumeText.trim()) {
-      toast.error('Resume is required. Please upload a PDF/DOCX or paste text into Candidate Resume.')
+      toast.error('Please upload your resume file or paste your resume text.')
       if (activeTab === 'text' && resumeTextareaRef.current) {
         resumeTextareaRef.current.focus()
       }
@@ -189,7 +189,7 @@ export default function AnalyzeWorkspace() {
     }
 
     if (!jobDescription.trim()) {
-      toast.error('Job description is required. Please paste the job requirements in Target Opportunity.')
+      toast.error('Please paste the job description or requirements.')
       if (jdTextareaRef.current) {
         jdTextareaRef.current.focus()
       }
@@ -197,7 +197,7 @@ export default function AnalyzeWorkspace() {
     }
 
     setAnalyzing(true)
-    setProgressStep('Running Fine-Tuned Alignment Engine...')
+    setProgressStep('Comparing resume against job description...')
 
     try {
       const res = await analyzeResume({
@@ -207,10 +207,10 @@ export default function AnalyzeWorkspace() {
         resume_filename: file?.name || 'direct_input.txt',
       })
 
-      toast.success('Analysis complete!')
+      toast.success('Done! Opening match report...')
       navigate(`/results/${res.data.id}`)
     } catch (err) {
-      toast.error(err.userMessage || 'Failed to analyze resume. Please try again.')
+      toast.error(err.userMessage || 'Something went wrong while analyzing. Please try again.')
     } finally {
       setAnalyzing(false)
       setProgressStep('')
@@ -223,22 +223,22 @@ export default function AnalyzeWorkspace() {
 
   return (
     <div className="h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] overflow-hidden flex flex-col p-3 sm:p-4 gap-2.5 bg-[#dbe6d6] bg-[radial-gradient(#bed4ba_1px,transparent_1px)] [background-size:20px_20px] text-[#142e17]">
-      {/* 1. Header Bar: Elevated Frosted Bar with Gradient Highlights */}
+      {/* 1. Top Header Bar */}
       <div className="shrink-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5 bg-gradient-to-r from-white/90 via-[#edf5eb]/95 to-white/90 backdrop-blur-md border border-[#a6c5a1] rounded-2xl p-2 px-3.5 shadow-[0_4px_16px_rgba(20,50,22,0.06)]">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#18451b] via-[#235b27] to-[#307535] text-white flex items-center justify-center shadow-xs">
-            <Sparkles size={17} className="text-[#a7f3d0]" />
+            <Sparkles size={16} className="text-[#a7f3d0]" />
           </div>
           <div>
             <h1 className="text-sm sm:text-base font-black text-[#0f2e13] flex items-center gap-2 leading-none">
-              Resume Alignment Workspace
+              Resume & Job Matcher
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#d6ebd3] border border-[#7eb879] text-[#0f3f14] text-[10px] font-bold uppercase tracking-wider shadow-2xs">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#1da027] animate-pulse" />
-                Qwen 2.5 LoRA
+                Fine-Tuned Model
               </span>
             </h1>
             <p className="text-[11px] text-[#446841] font-medium mt-0.5 hidden sm:block">
-              Intelligent resume-to-job matching with fine-tuned PEFT parameter adaptation.
+              Compare your experience against job requirements to see what matches, what is missing, and how to rewrite bullet points.
             </p>
           </div>
         </div>
@@ -246,7 +246,7 @@ export default function AnalyzeWorkspace() {
         {/* Quick Sample Presets & Controls */}
         <div className="flex items-center gap-1.5 flex-wrap">
           <span className="text-[11px] text-[#446841] font-bold mr-0.5 flex items-center gap-1">
-            <Zap size={12} className="text-[#206925]" /> Presets:
+            <Zap size={12} className="text-[#206925]" /> Try samples:
           </span>
           {SAMPLE_PRESETS.map((preset, idx) => {
             const Icon = preset.icon
@@ -266,7 +266,7 @@ export default function AnalyzeWorkspace() {
             <button
               type="button"
               onClick={handleClearAll}
-              title="Clear all inputs"
+              title="Clear all fields"
               className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-[#e4efe1] hover:bg-[#d8e8d4] border border-[#a8c7a3] text-[11px] text-[#446841] hover:text-red-700 font-bold transition-all shadow-2xs cursor-pointer ml-1"
             >
               <RotateCcw size={11} /> Reset
@@ -275,9 +275,9 @@ export default function AnalyzeWorkspace() {
         </div>
       </div>
 
-      {/* 2. Main 2-Column Grid: Vibrant Elevated Cards with Soft Depth */}
+      {/* 2. Main 2-Column Grid */}
       <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 gap-3">
-        {/* Left Card: Candidate Resume */}
+        {/* Left Card: Resume Input */}
         <div className="bg-gradient-to-b from-white/95 via-[#f6fbf4]/95 to-[#edf5ec]/95 backdrop-blur-md border border-[#a2c49d] rounded-2xl p-3 flex flex-col h-full min-h-0 shadow-[0_8px_24px_rgba(20,50,22,0.06)] ring-1 ring-white/80">
           {/* Card Top Row */}
           <div className="shrink-0 flex items-center justify-between pb-2 border-b border-[#c8ddc4]">
@@ -285,7 +285,7 @@ export default function AnalyzeWorkspace() {
               <div className="w-6 h-6 rounded-lg bg-[#dcf2d9] border border-[#8ec789] text-[#134916] flex items-center justify-center shadow-2xs">
                 <FileText size={14} />
               </div>
-              <h2 className="text-xs sm:text-sm font-black text-[#0f2e13]">Candidate Resume</h2>
+              <h2 className="text-xs sm:text-sm font-black text-[#0f2e13]">Your Resume</h2>
               {resumeWords > 0 ? (
                 <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#d8eed4] text-[#0a3a0e] border border-[#65aa60] font-bold shadow-2xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#1da027]" />
@@ -293,12 +293,12 @@ export default function AnalyzeWorkspace() {
                 </span>
               ) : (
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#f1f7ef] text-[#557852] border border-[#bed8bb] font-medium">
-                  Awaiting input
+                  Upload file or paste text
                 </span>
               )}
             </div>
 
-            {/* Toggle Switch Tabs */}
+            {/* Switch Tabs */}
             <div className="flex bg-[#e2ede0] p-0.5 rounded-xl border border-[#b6d0b3] text-xs shadow-2xs">
               <button
                 type="button"
@@ -348,14 +348,14 @@ export default function AnalyzeWorkspace() {
                   <div className="shrink-0 p-3 bg-gradient-to-r from-[#f4faf2] via-white to-[#f0f8ee] border border-[#8ec789] rounded-xl shadow-xs">
                     <div className="flex items-center justify-between mb-1">
                       <p className="text-[11px] text-[#0f3f14] font-black flex items-center gap-1.5">
-                        <CheckCircle2 size={13} className="text-[#1da027]" /> Extracted Successfully ({resumeWords} words)
+                        <CheckCircle2 size={13} className="text-[#1da027]" /> Extracted Text ({resumeWords} words)
                       </p>
                       <button
                         type="button"
                         onClick={() => setActiveTab('text')}
                         className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#e4f2e1] hover:bg-[#d5ebd1] border border-[#91c78b] text-[11px] text-[#134916] font-bold transition shadow-2xs cursor-pointer"
                       >
-                        <Edit3 size={11} /> Edit in Text Mode
+                        <Edit3 size={11} /> Edit Text
                       </button>
                     </div>
                     <p className="text-[11px] text-[#294c26] line-clamp-2 font-mono leading-relaxed bg-white/70 p-1.5 rounded-lg border border-[#c4dec1]">
@@ -373,7 +373,7 @@ export default function AnalyzeWorkspace() {
                     setResumeText(e.target.value)
                     if (uploadError) setUploadError(null)
                   }}
-                  placeholder="Paste candidate resume content here (Summary, Technical Skills, Experience, Education)..."
+                  placeholder="Paste your resume here (Summary, Skills, Work Experience, Education)..."
                   className="w-full flex-1 min-h-0 bg-white border border-[#9fc19a] rounded-xl p-3 text-xs sm:text-sm text-[#0d2a10] placeholder-[#668b64] font-mono leading-relaxed shadow-inner focus:outline-none focus:border-[#245828] focus:ring-2 focus:ring-[#245828]/20 resize-none overflow-y-auto"
                 />
                 <div className="shrink-0 flex justify-between items-center text-[11px] text-[#446841] pt-1.5 font-medium">
@@ -397,7 +397,7 @@ export default function AnalyzeWorkspace() {
           </div>
         </div>
 
-        {/* Right Card: Target Opportunity */}
+        {/* Right Card: Job Description Input */}
         <div className="bg-gradient-to-b from-white/95 via-[#f6fbf4]/95 to-[#edf5ec]/95 backdrop-blur-md border border-[#a2c49d] rounded-2xl p-3 flex flex-col h-full min-h-0 shadow-[0_8px_24px_rgba(20,50,22,0.06)] ring-1 ring-white/80">
           {/* Card Top Row */}
           <div className="shrink-0 flex items-center justify-between pb-2 border-b border-[#c8ddc4]">
@@ -405,7 +405,7 @@ export default function AnalyzeWorkspace() {
               <div className="w-6 h-6 rounded-lg bg-[#dcf2d9] border border-[#8ec789] text-[#134916] flex items-center justify-center shadow-2xs">
                 <Briefcase size={14} />
               </div>
-              <h2 className="text-xs sm:text-sm font-black text-[#0f2e13]">Target Opportunity</h2>
+              <h2 className="text-xs sm:text-sm font-black text-[#0f2e13]">Job Description</h2>
               {jdWords > 0 ? (
                 <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full bg-[#d8eed4] text-[#0a3a0e] border border-[#65aa60] font-bold shadow-2xs">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#1da027]" />
@@ -413,7 +413,7 @@ export default function AnalyzeWorkspace() {
                 </span>
               ) : (
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#f1f7ef] text-[#557852] border border-[#bed8bb] font-medium">
-                  Awaiting JD
+                  Paste job requirements
                 </span>
               )}
             </div>
@@ -425,19 +425,19 @@ export default function AnalyzeWorkspace() {
                 type="text"
                 value={targetRole}
                 onChange={(e) => setTargetRole(e.target.value)}
-                placeholder="Target Job Title (Optional)"
+                placeholder="Target Role (optional, e.g. ML Engineer)"
                 className="w-full bg-white border border-[#9fc19a] rounded-lg pl-7 pr-2.5 py-1 text-xs text-[#0d2a10] placeholder-[#668b64] font-semibold focus:outline-none focus:border-[#245828] focus:ring-1 focus:ring-[#245828]/25 shadow-2xs"
               />
             </div>
           </div>
 
-          {/* Card Body: JD Textarea fills all remaining height */}
+          {/* Card Body: JD Textarea */}
           <div className="flex-1 min-h-0 pt-2 flex flex-col">
             <textarea
               ref={jdTextareaRef}
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
-              placeholder="Paste company job posting requirements, responsibilities, and qualifications here..."
+              placeholder="Paste company job requirements, responsibilities, and qualifications here..."
               className="w-full flex-1 min-h-0 bg-white border border-[#9fc19a] rounded-xl p-3 text-xs sm:text-sm text-[#0d2a10] placeholder-[#668b64] font-mono leading-relaxed shadow-inner focus:outline-none focus:border-[#245828] focus:ring-2 focus:ring-[#245828]/20 resize-none overflow-y-auto"
             />
             <div className="shrink-0 flex justify-between items-center text-[11px] text-[#446841] pt-1.5 font-medium">
@@ -460,7 +460,7 @@ export default function AnalyzeWorkspace() {
         </div>
       </div>
 
-      {/* 3. Bottom Action Launchpad: High-Impact Hero Bar */}
+      {/* 3. Bottom Action Bar */}
       <div className="shrink-0 bg-gradient-to-r from-white/95 via-[#edf5eb]/95 to-white/95 backdrop-blur-md border border-[#a2c49d] rounded-2xl px-4 py-2 sm:py-2.5 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-[0_8px_24px_rgba(20,50,22,0.08)] ring-1 ring-white/80">
         {/* Dynamic Checklist Pills */}
         <div className="flex items-center gap-2 flex-wrap">
@@ -474,7 +474,7 @@ export default function AnalyzeWorkspace() {
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fef3c7] border border-[#f59e0b] text-[#854d0e] text-[11px] font-extrabold shadow-2xs animate-pulse">
-              <AlertCircle size={13} className="text-[#b45309]" /> Resume Required
+              <AlertCircle size={13} className="text-[#b45309]" /> Resume Needed
             </span>
           )}
 
@@ -484,12 +484,12 @@ export default function AnalyzeWorkspace() {
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fef3c7] border border-[#f59e0b] text-[#854d0e] text-[11px] font-extrabold shadow-2xs animate-pulse">
-              <AlertCircle size={13} className="text-[#b45309]" /> Job Description Required
+              <AlertCircle size={13} className="text-[#b45309]" /> Job Description Needed
             </span>
           )}
         </div>
 
-        {/* Action Button: Glowing High-Energy Launchpad */}
+        {/* Action Button */}
         <button
           type="button"
           onClick={handleRunAnalysis}
@@ -505,17 +505,17 @@ export default function AnalyzeWorkspace() {
           {analyzing ? (
             <>
               <Loader2 size={16} className="animate-spin text-[#86efac]" />
-              <span>{progressStep || 'Running Alignment Engine...'}</span>
+              <span>{progressStep || 'Comparing with job description...'}</span>
             </>
           ) : uploading ? (
             <>
               <Loader2 size={16} className="animate-spin text-[#86efac]" />
-              <span>Extracting Document...</span>
+              <span>Reading resume document...</span>
             </>
           ) : (
             <>
               <Sparkles size={16} className={isReady ? 'text-[#86efac] animate-pulse' : 'text-[#206925]'} />
-              <span>Run AI Alignment Analysis</span>
+              <span>Check Resume Match</span>
               <ArrowRight size={15} className="opacity-90" />
             </>
           )}
