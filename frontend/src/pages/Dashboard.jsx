@@ -50,29 +50,29 @@ export default function Dashboard() {
       : 0
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-      {/* Hero Header */}
-      <div className="relative rounded-2xl bg-gradient-to-r from-blue-900/40 via-purple-900/30 to-gray-900 border border-gray-800 p-8 overflow-hidden">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-[#dbe6d6] text-[#142e17]">
+      {/* Hero Header: Rich Dark Forest Green with Crisp White & Pale Green Text */}
+      <div className="relative rounded-2xl bg-gradient-to-r from-[#143518] via-[#1a441f] to-[#25572b] border border-[#3b7440] p-8 overflow-hidden shadow-md text-white">
         <div className="relative z-10 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-3">
-            <Sparkles size={14} /> PEFT / QLoRA Fine-Tuned AI
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#27602c] border border-[#549c59] text-[#bbf7d0] text-xs font-bold mb-3 shadow-xs">
+            <Sparkles size={14} className="text-[#86efac]" /> PEFT / QLoRA Fine-Tuned AI
           </div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-[#ffffff] tracking-tight">
             Resume Intelligence & Job Alignment Platform
           </h1>
-          <p className="mt-2 text-gray-400 text-sm leading-relaxed">
-            Optimize your resume with genuine machine learning. Match against target job descriptions, discover missing skills, rewrite ATS bullet points, and maximize interview callbacks.
+          <p className="mt-3 text-[#d8edd6] text-sm sm:text-base leading-relaxed font-medium">
+            Optimize candidate resumes with fine-tuned LLM intelligence. Match against company job descriptions, discover missing technical skills, rewrite ATS bullet points, and maximize interview callbacks.
           </p>
           <div className="mt-6 flex flex-wrap gap-4">
             <Link
               to="/analyze"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium shadow-lg shadow-blue-600/30 transition-all text-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#2f6f34] to-[#408e46] hover:from-[#3a8340] hover:to-[#4ca752] text-white font-bold shadow-md shadow-[#0d2610]/40 border border-[#5db063] transition-all text-sm"
             >
               <PlusCircle size={18} /> Analyze New Resume
             </Link>
             <Link
               to="/evaluation"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium border border-gray-700 transition-all text-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#112914] hover:bg-[#193a1d] text-[#bbf7d0] font-bold border border-[#376e3c] transition-all text-sm"
             >
               <TrendingUp size={18} /> View Model Metrics
             </Link>
@@ -80,116 +80,116 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Grid: Pale Green Cards with Crisp Dark Green Text */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-gray-900/60 border border-gray-800/80 rounded-xl p-5 flex items-center justify-between">
+        <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-5 flex items-center justify-between shadow-xs">
           <div>
-            <p className="text-xs text-gray-400 font-medium">Total Analyses</p>
-            <p className="text-2xl font-bold text-white mt-1">{history.length}</p>
+            <p className="text-xs text-[#3d5e3b] font-bold uppercase tracking-wider">Total Analyses</p>
+            <p className="text-2xl font-black text-[#112e15] mt-1">{history.length}</p>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
+          <div className="w-10 h-10 rounded-lg bg-[#d6ebd3] border border-[#8ec789] flex items-center justify-center text-[#1b4e20]">
             <FileText size={20} />
           </div>
         </div>
 
-        <div className="bg-gray-900/60 border border-gray-800/80 rounded-xl p-5 flex items-center justify-between">
+        <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-5 flex items-center justify-between shadow-xs">
           <div>
-            <p className="text-xs text-gray-400 font-medium">Average Match Score</p>
-            <p className="text-2xl font-bold text-white mt-1">
+            <p className="text-xs text-[#3d5e3b] font-bold uppercase tracking-wider">Average Match Score</p>
+            <p className="text-2xl font-black text-[#112e15] mt-1">
               {avgScore > 0 ? `${avgScore}%` : 'N/A'}
             </p>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-400">
+          <div className="w-10 h-10 rounded-lg bg-[#d6ebd3] border border-[#8ec789] flex items-center justify-center text-[#1b4e20]">
             <TrendingUp size={20} />
           </div>
         </div>
 
-        <div className="bg-gray-900/60 border border-gray-800/80 rounded-xl p-5 flex items-center justify-between">
+        <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-5 flex items-center justify-between shadow-xs">
           <div>
-            <p className="text-xs text-gray-400 font-medium">Inference Engine</p>
-            <p className="text-sm font-bold text-white mt-1 truncate">
+            <p className="text-xs text-[#3d5e3b] font-bold uppercase tracking-wider">Inference Engine</p>
+            <p className="text-sm font-black text-[#112e15] mt-1 truncate">
               {modelStatus?.fine_tuned ? 'Qwen2.5 LoRA' : 'Precision Engine'}
             </p>
-            <p className="text-[11px] text-gray-500 capitalize">
+            <p className="text-[11px] text-[#4b6d49] font-medium capitalize">
               Device: {modelStatus?.device || 'CPU'}
             </p>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400">
+          <div className="w-10 h-10 rounded-lg bg-[#d6ebd3] border border-[#8ec789] flex items-center justify-center text-[#1b4e20]">
             <Cpu size={20} />
           </div>
         </div>
 
-        <div className="bg-gray-900/60 border border-gray-800/80 rounded-xl p-5 flex items-center justify-between">
+        <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-5 flex items-center justify-between shadow-xs">
           <div>
-            <p className="text-xs text-gray-400 font-medium">Status</p>
-            <p className="text-sm font-semibold text-green-400 mt-1 flex items-center gap-1.5">
-              <CheckCircle2 size={14} /> Operational
+            <p className="text-xs text-[#3d5e3b] font-bold uppercase tracking-wider">Status</p>
+            <p className="text-sm font-black text-[#155a1c] mt-1 flex items-center gap-1.5">
+              <CheckCircle2 size={15} className="text-[#155a1c]" /> Operational
             </p>
-            <p className="text-[11px] text-gray-500">FastAPI + PyTorch</p>
+            <p className="text-[11px] text-[#4b6d49] font-medium">FastAPI + PyTorch</p>
           </div>
-          <div className="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
+          <div className="w-10 h-10 rounded-lg bg-[#d6ebd3] border border-[#8ec789] flex items-center justify-center text-[#1b4e20]">
             <Clock size={20} />
           </div>
         </div>
       </div>
 
-      {/* Recent Analyses Section */}
-      <div className="bg-gray-900/60 border border-gray-800 rounded-xl p-6 space-y-4">
-        <div className="flex items-center justify-between">
+      {/* Recent Analyses Section: Pale Green Card with Crisp Content */}
+      <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-6 space-y-4 shadow-sm">
+        <div className="flex items-center justify-between pb-2 border-b border-[#c8ddc4]">
           <div>
-            <h2 className="text-lg font-semibold text-white">Recent Analyses</h2>
-            <p className="text-xs text-gray-400">Your latest resume evaluation runs</p>
+            <h2 className="text-lg font-bold text-[#112e15]">Recent Analyses</h2>
+            <p className="text-xs text-[#446642] font-medium">Your latest resume evaluation runs</p>
           </div>
           <Link
             to="/history"
-            className="text-xs text-blue-400 hover:text-blue-300 flex items-center gap-1 font-medium"
+            className="text-xs text-[#1e5824] hover:text-[#0f3813] flex items-center gap-1 font-bold"
           >
             View all history <ArrowRight size={14} />
           </Link>
         </div>
 
         {loading ? (
-          <div className="py-12 text-center text-gray-500 text-sm">
+          <div className="py-12 text-center text-[#4b6d48] text-sm font-medium">
             Loading recent analyses...
           </div>
         ) : history.length === 0 ? (
           <div className="py-12 text-center space-y-3">
-            <FileText size={36} className="mx-auto text-gray-600" />
-            <p className="text-gray-400 text-sm">No analyses completed yet.</p>
+            <FileText size={36} className="mx-auto text-[#6a8c67]" />
+            <p className="text-[#3d5e3b] text-sm font-semibold">No analyses completed yet.</p>
             <Link
               to="/analyze"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#245828] hover:bg-[#327037] text-white text-xs font-bold shadow-xs"
             >
               Start Your First Analysis
             </Link>
           </div>
         ) : (
-          <div className="divide-y divide-gray-800">
+          <div className="divide-y divide-[#cde0cb]">
             {history.map((item) => (
               <div
                 key={item.id}
-                className="py-4 flex items-center justify-between hover:bg-gray-800/30 px-3 rounded-lg transition-colors"
+                className="py-4 flex items-center justify-between hover:bg-[#e4ede1] px-3 rounded-lg transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 flex items-center justify-center">
+                  <div className="w-12 h-12 flex items-center justify-center shrink-0">
                     <ScoreRing score={item.overall_match} size={48} strokeWidth={5} />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white">
+                    <p className="text-sm font-bold text-[#112e15]">
                       {item.target_role || 'Target Role Analysis'}
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-[#3a5c37] font-medium">
                       File: {item.resume_filename || 'Direct Text Input'} • Model: {item.model_used}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs font-semibold text-[#486b45]">
                     {new Date(item.created_at).toLocaleDateString()}
                   </span>
                   <Link
                     to={`/results/${item.id}`}
-                    className="px-3 py-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 text-xs text-blue-400 font-medium"
+                    className="px-3.5 py-1.5 rounded-lg bg-[#d6ebd3] hover:bg-[#c6e2c2] text-xs text-[#144719] font-bold border border-[#8ec789] transition-all shadow-2xs"
                   >
                     View Report
                   </Link>
@@ -202,4 +202,3 @@ export default function Dashboard() {
     </div>
   )
 }
-

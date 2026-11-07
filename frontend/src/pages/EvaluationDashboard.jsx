@@ -100,38 +100,38 @@ export default function EvaluationDashboard() {
   ]
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 bg-[#dbe6d6] text-[#142e17]">
       {/* Header */}
-      <div className="border-b border-gray-800 pb-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold mb-2">
-          <Sparkles size={13} /> Model Benchmark Evaluation
+      <div className="border-b border-[#b7ccb2] pb-6">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d6ebd3] border border-[#8ec789] text-[#134916] text-xs font-bold mb-2 shadow-2xs">
+          <Sparkles size={13} className="text-[#206925]" /> Model Benchmark Evaluation
         </div>
-        <h1 className="text-2xl font-bold text-white">Baseline vs. Fine-Tuned Model Comparison</h1>
-        <p className="text-sm text-gray-400 mt-1">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#112e15]">Baseline vs. Fine-Tuned Model Comparison</h1>
+        <p className="text-sm text-[#3d5e3b] mt-1 font-medium">
           Quantitative evaluation on held-out test split (20 examples) across structured output validity, skill precision, and hallucination suppression.
         </p>
       </div>
 
       {/* Summary Highlight Box */}
-      <div className="bg-gradient-to-r from-blue-950/40 via-purple-950/20 to-gray-900 border border-blue-900/40 rounded-2xl p-6 sm:p-8">
+      <div className="bg-gradient-to-r from-[#17381b] via-[#1d4622] to-[#25572b] border border-[#386b3b] rounded-2xl p-6 sm:p-8 shadow-md text-white">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2">
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              <CheckCircle2 className="text-green-400" size={22} />
+            <h2 className="text-xl sm:text-2xl font-black text-white flex items-center gap-2">
+              <CheckCircle2 className="text-[#86efac]" size={24} />
               Fine-Tuning Performance Verification: Confirmed
             </h2>
-            <p className="text-sm text-gray-300 max-w-2xl leading-relaxed">
-              PEFT LoRA fine-tuning successfully eliminated conversational drift and JSON syntax failures, achieving <strong>100% schema compliance</strong> and a <strong>+73.8% increase in missing skill identification accuracy</strong>.
+            <p className="text-sm text-[#d8edd6] max-w-2xl leading-relaxed font-medium">
+              PEFT LoRA fine-tuning successfully eliminated conversational drift and JSON syntax failures, achieving <strong className="text-white">100% schema compliance</strong> and a <strong className="text-[#bbf7d0]">+73.8% increase in missing skill identification accuracy</strong>.
             </p>
           </div>
           <div className="flex gap-4 shrink-0 text-center">
-            <div className="p-4 bg-gray-900/80 border border-gray-800 rounded-xl">
-              <span className="text-xs text-gray-400">Baseline Avg</span>
-              <p className="text-2xl font-bold text-red-400 mt-1">31.7%</p>
+            <div className="p-4 bg-[#112914] border border-[#2b582f] rounded-xl shadow-xs">
+              <span className="text-xs text-[#a3c4a1] font-bold uppercase tracking-wider">Baseline Avg</span>
+              <p className="text-2xl font-black text-red-400 mt-1">31.7%</p>
             </div>
-            <div className="p-4 bg-gray-900/80 border border-blue-900/50 rounded-xl">
-              <span className="text-xs text-blue-300">Fine-Tuned Avg</span>
-              <p className="text-2xl font-bold text-green-400 mt-1">100.0%</p>
+            <div className="p-4 bg-[#112914] border border-[#488e4c] rounded-xl shadow-xs">
+              <span className="text-xs text-[#a3c4a1] font-bold uppercase tracking-wider">Fine-Tuned Avg</span>
+              <p className="text-2xl font-black text-[#86efac] mt-1">100.0%</p>
             </div>
           </div>
         </div>
@@ -145,31 +145,31 @@ export default function EvaluationDashboard() {
           return (
             <div
               key={idx}
-              className="bg-gray-900/60 border border-gray-800 rounded-xl p-6 space-y-4 flex flex-col justify-between"
+              className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-6 space-y-4 flex flex-col justify-between shadow-sm"
             >
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-gray-300 flex items-center gap-2">
-                    <Icon size={16} className="text-blue-400" /> {m.name}
+                  <span className="text-xs font-bold text-[#112e15] flex items-center gap-2">
+                    <Icon size={16} className="text-[#206925]" /> {m.name}
                   </span>
-                  <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full text-xs font-bold text-green-400 bg-green-950/40 border border-green-800/50">
+                  <span className="inline-flex items-center gap-0.5 px-2.5 py-0.5 rounded-full text-xs font-bold text-[#145a1c] bg-[#d6ebd3] border border-[#8ec789]">
                     <ArrowUpRight size={13} /> +{delta}%
                   </span>
                 </div>
-                <p className="text-xs text-gray-400 leading-relaxed">{m.desc}</p>
+                <p className="text-xs text-[#3d5e3b] leading-relaxed font-medium">{m.desc}</p>
               </div>
 
               {/* Progress Comparison Bars */}
-              <div className="space-y-2.5 pt-2 border-t border-gray-800/80">
+              <div className="space-y-2.5 pt-2 border-t border-[#c6dcc3]">
                 {/* Baseline Bar */}
                 <div className="space-y-1">
-                  <div className="flex justify-between text-[11px] text-gray-400">
+                  <div className="flex justify-between text-[11px] text-[#4b6d49] font-semibold">
                     <span>Base Model (Qwen 2.5)</span>
-                    <span className="text-gray-300 font-mono font-medium">{m.base.toFixed(1)}%</span>
+                    <span className="text-red-700 font-mono font-bold">{m.base.toFixed(1)}%</span>
                   </div>
-                  <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                  <div className="w-full bg-[#d7e6d5] h-2 rounded-full overflow-hidden">
                     <div
-                      className="bg-gray-600 h-full rounded-full"
+                      className="bg-red-500 h-full rounded-full"
                       style={{ width: `${m.base}%` }}
                     />
                   </div>
@@ -177,13 +177,13 @@ export default function EvaluationDashboard() {
 
                 {/* Fine-Tuned Bar */}
                 <div className="space-y-1">
-                  <div className="flex justify-between text-[11px] text-blue-300 font-semibold">
+                  <div className="flex justify-between text-[11px] text-[#1a441e] font-bold">
                     <span>Fine-Tuned (ResumeFit LoRA)</span>
-                    <span className="text-green-400 font-mono">{m.ft.toFixed(1)}%</span>
+                    <span className="text-[#145a1c] font-mono font-black">{m.ft.toFixed(1)}%</span>
                   </div>
-                  <div className="w-full bg-gray-800 h-2 rounded-full overflow-hidden">
+                  <div className="w-full bg-[#d7e6d5] h-2 rounded-full overflow-hidden">
                     <div
-                      className="bg-gradient-to-r from-blue-500 to-green-400 h-full rounded-full transition-all duration-700"
+                      className="bg-[#2a682f] h-full rounded-full transition-all duration-700"
                       style={{ width: `${m.ft}%` }}
                     />
                   </div>
@@ -195,13 +195,12 @@ export default function EvaluationDashboard() {
       </div>
 
       {/* Evaluation Methodology Note */}
-      <div className="bg-gray-900/40 border border-gray-800 rounded-xl p-6 text-xs text-gray-400 space-y-2">
-        <h3 className="text-sm font-semibold text-white">Evaluation Methodology & Benchmark Protocol</h3>
+      <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-6 text-xs text-[#3d5e3b] space-y-2 shadow-sm font-medium">
+        <h3 className="text-sm font-bold text-[#112e15]">Evaluation Methodology & Benchmark Protocol</h3>
         <p className="leading-relaxed">
-          The test evaluation was executed using <code className="text-blue-400">ml/evaluation/evaluate.py</code> on 20 held-out test splits. Baseline predictions represent un-fine-tuned responses exhibiting typical generative failure modes (including unsolicited preamble text and schema truncation). Fine-tuned predictions reflect execution with the trained LoRA adapter weights loaded into the causal LM pipeline.
+          The test evaluation was executed using <code className="text-[#154f19] font-bold">ml/evaluation/evaluate.py</code> on 20 held-out test splits. Baseline predictions represent un-fine-tuned responses exhibiting typical generative failure modes (including unsolicited preamble text and schema truncation). Fine-tuned predictions reflect execution with the trained LoRA adapter weights loaded into the causal LM pipeline.
         </p>
       </div>
     </div>
   )
 }
-
