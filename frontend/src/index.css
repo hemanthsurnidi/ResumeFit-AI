@@ -5,24 +5,24 @@
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #061209;
-    color: #e2f0e4;
+    background-color: #dbe6d6;
+    color: #142e17;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
-  /* Custom Olive & Pale Green Scrollbars */
+  /* Custom Light Olive & Dark Green Scrollbars */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #09170d;
+    background: #d0ded0;
   }
   ::-webkit-scrollbar-thumb {
-    background: #254929;
+    background: #8aa984;
     border-radius: 9999px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3c7042;
+    background: #5e8257;
   }
 }

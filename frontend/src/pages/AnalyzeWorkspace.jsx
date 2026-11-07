@@ -206,21 +206,21 @@ export default function AnalyzeWorkspace() {
   const isReady = resumeWords > 0 && jdWords > 0
 
   return (
-    <div className="h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] overflow-hidden flex flex-col p-3 sm:p-4 gap-2.5 bg-[#061209] text-[#e2f0e4]">
-      {/* 1. Header Bar: Compact, No vertical bloat */}
-      <div className="shrink-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#1c3820] pb-2">
+    <div className="h-[calc(100vh-4rem)] max-h-[calc(100vh-4rem)] overflow-hidden flex flex-col p-3 sm:p-4 gap-2.5 bg-[#dbe6d6] text-[#142e17]">
+      {/* 1. Header Bar: Light Olive Green background, Dark Green text */}
+      <div className="shrink-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-[#b7ccb2] pb-2">
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-lg bg-[#143219] border border-[#2e5d34] text-[#86efac]">
+          <div className="p-1.5 rounded-lg bg-[#c8ddc2] border border-[#a2be9b] text-[#1e4822] shadow-2xs">
             <Sparkles size={18} />
           </div>
           <div>
-            <h1 className="text-base sm:text-lg font-bold text-[#e8f7ea] flex items-center gap-2 leading-tight">
+            <h1 className="text-base sm:text-lg font-bold text-[#112d14] flex items-center gap-2 leading-tight">
               Resume Alignment Workspace
-              <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#16351c] text-[#86efac] border border-[#2b5c32]">
+              <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-[#c8ddc2] text-[#1b431e] border border-[#9ebb96]">
                 Qwen 2.5 LoRA
               </span>
             </h1>
-            <p className="text-[11px] text-[#7ea581] hidden sm:block">
+            <p className="text-[11px] text-[#486b45] hidden sm:block">
               Candidate resume vs job description alignment with fine-tuned PEFT intelligence.
             </p>
           </div>
@@ -228,13 +228,13 @@ export default function AnalyzeWorkspace() {
 
         {/* Quick Sample Presets */}
         <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="text-[11px] text-[#719574] font-medium mr-0.5">Quick Presets:</span>
+          <span className="text-[11px] text-[#486b45] font-semibold mr-0.5">Quick Presets:</span>
           {SAMPLE_PRESETS.map((preset, idx) => (
             <button
               key={idx}
               type="button"
               onClick={() => handleLoadPreset(preset)}
-              className="px-2.5 py-1 rounded-md bg-[#132b17] hover:bg-[#1f4224] border border-[#2a5430] hover:border-[#4d8654] text-[11px] text-[#bde3b5] font-medium transition-all shadow-sm"
+              className="px-2.5 py-1 rounded-md bg-[#e6f0e2] hover:bg-[#d8e8d3] border border-[#a6c49f] hover:border-[#6f9867] text-[11px] text-[#183d1b] font-medium transition-all shadow-2xs"
             >
               {preset.name}
             </button>
@@ -242,31 +242,31 @@ export default function AnalyzeWorkspace() {
         </div>
       </div>
 
-      {/* 2. Main 2-Column Grid: Fills remaining viewport flex-1 min-h-0 with internal scroll only */}
+      {/* 2. Main 2-Column Grid: Pale light green cards, olive borders, dark green typography */}
       <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-2 gap-3">
         {/* Left Card: Candidate Resume */}
-        <div className="bg-[#0b1c10] border border-[#1d3d23] rounded-xl p-3 flex flex-col h-full min-h-0 shadow-md">
+        <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-3 flex flex-col h-full min-h-0 shadow-sm">
           {/* Card Top Row */}
-          <div className="shrink-0 flex items-center justify-between pb-2 border-b border-[#18361d]">
+          <div className="shrink-0 flex items-center justify-between pb-2 border-b border-[#c8ddc4]">
             <div className="flex items-center gap-2">
-              <FileText className="text-[#86efac]" size={16} />
-              <h2 className="text-xs sm:text-sm font-semibold text-[#daf3dc]">Candidate Resume</h2>
+              <FileText className="text-[#285d2c]" size={16} />
+              <h2 className="text-xs sm:text-sm font-bold text-[#122e15]">Candidate Resume</h2>
               {resumeWords > 0 && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#14351a] text-[#86efac] border border-[#2f6636] font-medium">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#d9ecd4] text-[#1c481f] border border-[#9fbf9a] font-semibold">
                   {resumeWords} words
                 </span>
               )}
             </div>
 
             {/* Toggle Tabs */}
-            <div className="flex bg-[#07150a] p-0.5 rounded-lg border border-[#19391e] text-xs">
+            <div className="flex bg-[#dfeadc] p-0.5 rounded-lg border border-[#bad1b7] text-xs">
               <button
                 type="button"
                 onClick={() => setActiveTab('upload')}
                 className={`px-2.5 py-0.5 rounded-md text-[11px] font-medium transition-all ${
                   activeTab === 'upload'
-                    ? 'bg-[#295e2e] text-white shadow-sm font-semibold'
-                    : 'text-[#7e9f7b] hover:text-[#c4ecc6]'
+                    ? 'bg-[#245828] text-white shadow-xs font-semibold'
+                    : 'text-[#466944] hover:text-[#143217]'
                 }`}
               >
                 Upload File
@@ -276,8 +276,8 @@ export default function AnalyzeWorkspace() {
                 onClick={() => setActiveTab('text')}
                 className={`px-2.5 py-0.5 rounded-md text-[11px] font-medium transition-all ${
                   activeTab === 'text'
-                    ? 'bg-[#295e2e] text-white shadow-sm font-semibold'
-                    : 'text-[#7e9f7b] hover:text-[#c4ecc6]'
+                    ? 'bg-[#245828] text-white shadow-xs font-semibold'
+                    : 'text-[#466944] hover:text-[#143217]'
                 }`}
               >
                 Paste Text
@@ -305,20 +305,20 @@ export default function AnalyzeWorkspace() {
                 </div>
 
                 {resumeText && !uploadError && (
-                  <div className="shrink-0 p-2.5 bg-[#08170d] border border-[#28572e] rounded-lg">
+                  <div className="shrink-0 p-2.5 bg-[#f4f9f2] border border-[#a6c49e] rounded-lg shadow-2xs">
                     <div className="flex items-center justify-between mb-1">
-                      <p className="text-[11px] text-[#86efac] font-medium flex items-center gap-1.5">
-                        <CheckCircle2 size={13} /> Text Extracted Successfully ({resumeWords} words)
+                      <p className="text-[11px] text-[#1d5221] font-bold flex items-center gap-1.5">
+                        <CheckCircle2 size={13} className="text-[#2e7434]" /> Text Extracted Successfully ({resumeWords} words)
                       </p>
                       <button
                         type="button"
                         onClick={() => setActiveTab('text')}
-                        className="text-[11px] text-[#a7f3d0] hover:underline flex items-center gap-1"
+                        className="text-[11px] text-[#245828] font-semibold hover:underline flex items-center gap-1"
                       >
                         <Edit3 size={11} /> Edit text
                       </button>
                     </div>
-                    <p className="text-[11px] text-[#86a888] line-clamp-2 font-mono leading-relaxed">
+                    <p className="text-[11px] text-[#365733] line-clamp-2 font-mono leading-relaxed">
                       {resumeText}
                     </p>
                   </div>
@@ -334,15 +334,15 @@ export default function AnalyzeWorkspace() {
                     if (uploadError) setUploadError(null)
                   }}
                   placeholder="Paste candidate resume content here (Summary, Technical Skills, Experience, Education)..."
-                  className="w-full flex-1 min-h-0 bg-[#08150c] border border-[#1c3c21] rounded-lg p-2.5 text-xs sm:text-sm text-[#e0f5e3] placeholder-[#4f7353] focus:outline-none focus:border-[#529757] font-mono resize-none overflow-y-auto leading-relaxed"
+                  className="w-full flex-1 min-h-0 bg-[#ffffff] border border-[#afc9ac] rounded-lg p-2.5 text-xs sm:text-sm text-[#122e15] placeholder-[#71936e] focus:outline-none focus:border-[#3d743a] focus:ring-1 focus:ring-[#3d743a]/30 font-mono resize-none overflow-y-auto leading-relaxed shadow-inner"
                 />
-                <div className="shrink-0 flex justify-between items-center text-[11px] text-[#719574] pt-1">
-                  <span>{resumeWords} words</span>
+                <div className="shrink-0 flex justify-between items-center text-[11px] text-[#4d714a] pt-1">
+                  <span className="font-medium">{resumeWords} words</span>
                   {resumeText && (
                     <button
                       type="button"
                       onClick={() => setResumeText('')}
-                      className="text-red-400 hover:text-red-300 hover:underline"
+                      className="text-red-600 hover:text-red-700 hover:underline font-medium"
                     >
                       Clear text
                     </button>
@@ -354,14 +354,14 @@ export default function AnalyzeWorkspace() {
         </div>
 
         {/* Right Card: Target Opportunity */}
-        <div className="bg-[#0b1c10] border border-[#1d3d23] rounded-xl p-3 flex flex-col h-full min-h-0 shadow-md">
+        <div className="bg-[#eef5ec] border border-[#b2cbb0] rounded-xl p-3 flex flex-col h-full min-h-0 shadow-sm">
           {/* Card Top Row */}
-          <div className="shrink-0 flex items-center justify-between pb-2 border-b border-[#18361d]">
+          <div className="shrink-0 flex items-center justify-between pb-2 border-b border-[#c8ddc4]">
             <div className="flex items-center gap-2">
-              <Briefcase className="text-[#86efac]" size={16} />
-              <h2 className="text-xs sm:text-sm font-semibold text-[#daf3dc]">Target Opportunity</h2>
+              <Briefcase className="text-[#285d2c]" size={16} />
+              <h2 className="text-xs sm:text-sm font-bold text-[#122e15]">Target Opportunity</h2>
               {jdWords > 0 && (
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#14351a] text-[#86efac] border border-[#2f6636] font-medium">
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#d9ecd4] text-[#1c481f] border border-[#9fbf9a] font-semibold">
                   {jdWords} words
                 </span>
               )}
@@ -374,7 +374,7 @@ export default function AnalyzeWorkspace() {
                 value={targetRole}
                 onChange={(e) => setTargetRole(e.target.value)}
                 placeholder="Target Role (e.g. ML Engineer)"
-                className="w-full bg-[#08150c] border border-[#1c3c21] rounded-md px-2.5 py-0.5 text-xs text-[#e0f5e3] placeholder-[#4f7353] focus:outline-none focus:border-[#529757]"
+                className="w-full bg-[#ffffff] border border-[#afc9ac] rounded-md px-2.5 py-0.5 text-xs text-[#122e15] placeholder-[#71936e] focus:outline-none focus:border-[#3d743a] focus:ring-1 focus:ring-[#3d743a]/30 shadow-inner"
               />
             </div>
           </div>
@@ -386,15 +386,15 @@ export default function AnalyzeWorkspace() {
               value={jobDescription}
               onChange={(e) => setJobDescription(e.target.value)}
               placeholder="Paste company job posting requirements, responsibilities, and qualifications here..."
-              className="w-full flex-1 min-h-0 bg-[#08150c] border border-[#1c3c21] rounded-lg p-2.5 text-xs sm:text-sm text-[#e0f5e3] placeholder-[#4f7353] focus:outline-none focus:border-[#529757] font-mono resize-none overflow-y-auto leading-relaxed"
+              className="w-full flex-1 min-h-0 bg-[#ffffff] border border-[#afc9ac] rounded-lg p-2.5 text-xs sm:text-sm text-[#122e15] placeholder-[#71936e] focus:outline-none focus:border-[#3d743a] focus:ring-1 focus:ring-[#3d743a]/30 font-mono resize-none overflow-y-auto leading-relaxed shadow-inner"
             />
-            <div className="shrink-0 flex justify-between items-center text-[11px] text-[#719574] pt-1">
-              <span>{jdWords} words</span>
+            <div className="shrink-0 flex justify-between items-center text-[11px] text-[#4d714a] pt-1">
+              <span className="font-medium">{jdWords} words</span>
               {jobDescription && (
                 <button
                   type="button"
                   onClick={() => setJobDescription('')}
-                  className="text-red-400 hover:text-red-300 hover:underline"
+                  className="text-red-600 hover:text-red-700 hover:underline font-medium"
                 >
                   Clear text
                 </button>
@@ -404,44 +404,44 @@ export default function AnalyzeWorkspace() {
         </div>
       </div>
 
-      {/* 3. Bottom Action Bar: Compact, No window scroll */}
-      <div className="shrink-0 bg-[#0a1a0e] border border-[#1d3c22] rounded-xl px-3.5 py-2 sm:py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 shadow-lg">
+      {/* 3. Bottom Action Bar: Light olive background with rich dark green button */}
+      <div className="shrink-0 bg-[#e7f1e4] border border-[#b4ccb1] rounded-xl px-3.5 py-2 sm:py-2.5 flex flex-col sm:flex-row items-center justify-between gap-2 shadow-xs">
         {/* Checklist Badges */}
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-[11px] font-medium text-[#719574] hidden md:inline">Checklist:</span>
+          <span className="text-[11px] font-bold text-[#3d5e3a] hidden md:inline">Checklist:</span>
 
           {resumeWords > 0 ? (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#122e18] border border-[#2b6033] text-[#86efac] text-[11px] font-medium">
-              <CheckCircle2 size={12} /> Resume Ready ({resumeWords}w)
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#dcf0d9] border border-[#8ec089] text-[#134916] text-[11px] font-semibold">
+              <CheckCircle2 size={12} className="text-[#206925]" /> Resume Ready ({resumeWords}w)
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#27210e] border border-[#6b5516] text-[#fcd34d] text-[11px] font-medium">
-              <AlertCircle size={12} /> Resume Missing (Upload/Paste)
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#fef3c7] border border-[#f59e0b] text-[#92400e] text-[11px] font-semibold">
+              <AlertCircle size={12} className="text-[#b45309]" /> Resume Missing (Upload/Paste)
             </span>
           )}
 
           {jdWords > 0 ? (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#122e18] border border-[#2b6033] text-[#86efac] text-[11px] font-medium">
-              <CheckCircle2 size={12} /> Job Description Ready ({jdWords}w)
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#dcf0d9] border border-[#8ec089] text-[#134916] text-[11px] font-semibold">
+              <CheckCircle2 size={12} className="text-[#206925]" /> Job Description Ready ({jdWords}w)
             </span>
           ) : (
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#27210e] border border-[#6b5516] text-[#fcd34d] text-[11px] font-medium">
-              <AlertCircle size={12} /> Job Description Missing
+            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#fef3c7] border border-[#f59e0b] text-[#92400e] text-[11px] font-semibold">
+              <AlertCircle size={12} className="text-[#b45309]" /> Job Description Missing
             </span>
           )}
         </div>
 
-        {/* Action Button: Glowing Olive & Pale Light Green */}
+        {/* Action Button: Dark Forest Green with pale green hover */}
         <button
           type="button"
           onClick={handleRunAnalysis}
           disabled={analyzing || uploading}
-          className={`w-full sm:w-auto px-6 py-2 rounded-xl font-semibold flex items-center justify-center gap-2 text-xs sm:text-sm transition-all shadow-md cursor-pointer ${
+          className={`w-full sm:w-auto px-6 py-2 rounded-xl font-bold flex items-center justify-center gap-2 text-xs sm:text-sm transition-all shadow-sm cursor-pointer ${
             analyzing || uploading
-              ? 'bg-[#122616] text-[#638765] cursor-not-allowed border border-[#1e3c23]'
+              ? 'bg-[#d0dfcd] text-[#698865] cursor-not-allowed border border-[#b2c8af]'
               : isReady
-              ? 'bg-gradient-to-r from-[#2c6530] via-[#387e3d] to-[#45954a] hover:from-[#347839] hover:to-[#4fa755] text-white shadow-[#143517]/70 border border-[#58a55d] ring-1 ring-[#86efac]/50 hover:scale-[1.01]'
-              : 'bg-[#152e19] hover:bg-[#1d3c22] text-[#bde3b5] border border-[#2f5532]'
+              ? 'bg-gradient-to-r from-[#1b441d] via-[#245827] to-[#2e6d32] hover:from-[#245827] hover:to-[#387e3d] text-white shadow-md shadow-[#1b441d]/20 border border-[#48824b] ring-1 ring-[#86efac]/40 hover:scale-[1.01]'
+              : 'bg-[#d8e7d4] hover:bg-[#cbdec6] text-[#183f1b] border border-[#9cbe97]'
           }`}
         >
           {analyzing ? (
@@ -456,9 +456,9 @@ export default function AnalyzeWorkspace() {
             </>
           ) : (
             <>
-              <Sparkles size={15} className={isReady ? 'text-[#bbf7d0]' : 'text-[#86efac]'} />
+              <Sparkles size={15} className={isReady ? 'text-[#bbf7d0]' : 'text-[#2e6d32]'} />
               <span>Run AI Alignment Analysis</span>
-              <ArrowRight size={14} className="opacity-80" />
+              <ArrowRight size={14} className="opacity-90" />
             </>
           )}
         </button>
