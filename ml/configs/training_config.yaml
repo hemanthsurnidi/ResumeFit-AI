@@ -1,0 +1,70 @@
+# ResumeFit AI Training Configuration
+# =====================================
+# QLoRA fine-tuning of Qwen2.5-1.5B-Instruct for resume analysis
+
+model:
+  base_model: "Qwen/Qwen2.5-1.5B-Instruct"
+  fallback_model: "Qwen/Qwen2.5-0.5B-Instruct"
+  torch_dtype: "float16"
+  device_map: "auto"
+
+quantization:
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_compute_dtype: "float16"
+  bnb_4bit_use_double_quant: true
+
+lora:
+  r: 16
+  lora_alpha: 32
+  lora_dropout: 0.1
+  bias: "none"
+  task_type: "CAUSAL_LM"
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+training:
+  output_dir: "models/adapters/resumefit-qwen2.5-lora"
+  num_train_epochs: 3
+  per_device_train_batch_size: 1
+  per_device_eval_batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 2.0e-4
+  weight_decay: 0.001
+  warmup_ratio: 0.03
+  lr_scheduler_type: "cosine"
+  max_seq_length: 2048
+  logging_steps: 10
+  eval_steps: 50
+  save_steps: 100
+  save_total_limit: 3
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+  fp16: true
+  bf16: false
+  gradient_checkpointing: true
+  dataloader_num_workers: 0
+  report_to: "none"
+  push_to_hub: false
+  hub_model_id: "YOUR_HF_USERNAME/resumefit-qwen2.5-lora"
+
+dataset:
+  train_file: "ml/dataset/splits/train.jsonl"
+  validation_file: "ml/dataset/splits/validation.jsonl"
+  test_file: "ml/dataset/splits/test.jsonl"
+  train_formatted: "ml/dataset/processed/train_formatted.jsonl"
+  val_formatted: "ml/dataset/processed/validation_formatted.jsonl"
+  test_formatted: "ml/dataset/processed/test_formatted.jsonl"
+
+evaluation:
+  output_dir: "ml/outputs/evaluation"
+  baseline_predictions: "ml/outputs/evaluation/baseline_predictions.jsonl"
+  finetuned_predictions: "ml/outputs/evaluation/finetuned_predictions.jsonl"
+  comparison_report: "ml/outputs/evaluation/comparison_report.json"

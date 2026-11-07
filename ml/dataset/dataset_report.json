@@ -1,0 +1,105 @@
+{
+  "splits": {
+    "train": {
+      "total_before": 200,
+      "filtered_long_tokens": 0,
+      "filtered_duplicates": 0,
+      "total_after": 200,
+      "token_stats": {
+        "min": 1505,
+        "max": 2014,
+        "mean": 1731.4,
+        "p50": 1745.5,
+        "p75": 1818.2,
+        "p90": 1879.9
+      },
+      "role_distribution": {
+        "software_engineer": 26,
+        "ml_engineer": 21,
+        "data_analyst": 21,
+        "backend_developer": 20,
+        "ai_engineer": 20,
+        "java_developer": 20,
+        "python_developer": 19,
+        "frontend_developer": 18,
+        "devops_engineer": 18,
+        "data_scientist": 17
+      },
+      "experience_distribution": {
+        "senior": 51,
+        "entry_level": 51,
+        "mid_level": 50,
+        "internship": 48
+      }
+    },
+    "validation": {
+      "total_before": 30,
+      "filtered_long_tokens": 0,
+      "filtered_duplicates": 0,
+      "total_after": 30,
+      "token_stats": {
+        "min": 1520,
+        "max": 1918,
+        "mean": 1717.3,
+        "p50": 1752.5,
+        "p75": 1801.8,
+        "p90": 1838.1
+      },
+      "role_distribution": {
+        "devops_engineer": 6,
+        "java_developer": 4,
+        "python_developer": 4,
+        "backend_developer": 4,
+        "data_scientist": 4,
+        "frontend_developer": 3,
+        "data_analyst": 2,
+        "ml_engineer": 2,
+        "ai_engineer": 1
+      },
+      "experience_distribution": {
+        "mid_level": 10,
+        "internship": 8,
+        "senior": 7,
+        "entry_level": 5
+      }
+    },
+    "test": {
+      "total_before": 20,
+      "filtered_long_tokens": 0,
+      "filtered_duplicates": 0,
+      "total_after": 20,
+      "token_stats": {
+        "min": 1542,
+        "max": 2030,
+        "mean": 1740.3,
+        "p50": 1735.5,
+        "p75": 1824.2,
+        "p90": 1922.6
+      },
+      "role_distribution": {
+        "frontend_developer": 4,
+        "data_scientist": 4,
+        "ai_engineer": 4,
+        "ml_engineer": 3,
+        "python_developer": 2,
+        "java_developer": 1,
+        "data_analyst": 1,
+        "backend_developer": 1
+      },
+      "experience_distribution": {
+        "entry_level": 7,
+        "internship": 6,
+        "senior": 5,
+        "mid_level": 2
+      }
+    }
+  },
+  "overall": {
+    "total_before": 250,
+    "total_filtered_long": 0,
+    "total_filtered_dup": 0,
+    "total_after": 250,
+    "max_tokens_threshold": 4096,
+    "chars_per_token": 3.5
+  }
+}

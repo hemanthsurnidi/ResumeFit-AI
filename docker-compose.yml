@@ -1,0 +1,62 @@
+version: "3.9"
+
+# ==============================================================
+# ResumeFit AI — Docker Compose
+# ==============================================================
+
+services:
+  # ------------------------------------------------------------
+  # Backend — FastAPI + Uvicorn
+  # ------------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: resumefit_backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./resumefit.db
+      - USE_FINE_TUNED_MODEL=${USE_FINE_TUNED_MODEL:-false}
+      - MODEL_PATH=${MODEL_PATH:-Qwen/Qwen2.5-0.5B-Instruct}
+      - ADAPTER_PATH=${ADAPTER_PATH:-models/adapters/resumefit-qwen2.5-lora}
+      - UPLOAD_DIR=/app/uploads
+      - MAX_FILE_SIZE_MB=${MAX_FILE_SIZE_MB:-10}
+      - CORS_ORIGINS=${CORS_ORIGINS:-["http://localhost:5173","http://localhost:3000"]}
+      - HF_TOKEN=${HF_TOKEN:-}
+    volumes:
+      - backend_uploads:/app/uploads
+      - backend_db:/app/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ------------------------------------------------------------
+  # Frontend — React + Vite (served by Nginx)
+  # ------------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8000}
+    container_name: resumefit_frontend
+    restart: unless-stopped
+    ports:
+      - "5173:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+# --------------------------------------------------------------
+# Named volumes for persistence
+# --------------------------------------------------------------
+volumes:
+  backend_uploads:
+    driver: local
+  backend_db:
+    driver: local

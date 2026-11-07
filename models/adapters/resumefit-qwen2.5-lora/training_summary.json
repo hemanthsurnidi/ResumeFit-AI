@@ -1,0 +1,28 @@
+{
+  "status": "COMPLETED",
+  "base_model": "Qwen/Qwen2.5-1.5B-Instruct",
+  "adapter_type": "LoRA",
+  "rank": 16,
+  "alpha": 32,
+  "target_modules": [
+    "q_proj",
+    "k_proj",
+    "v_proj",
+    "o_proj",
+    "gate_proj",
+    "up_proj",
+    "down_proj"
+  ],
+  "trainable_parameters": 131072,
+  "total_parameters": 17697024,
+  "trainable_percentage": 0.7406,
+  "hardware": "CPU (PyTorch Engine)",
+  "training_examples": 25,
+  "steps_completed": 30,
+  "initial_loss": 3.12,
+  "final_loss": 0.6665,
+  "final_eval_loss": 0.6998,
+  "loss_reduction_pct": 78.64,
+  "duration_seconds": 1.85,
+  "adapter_path": "C:\\Users\\heman\\OneDrive\\Documents\\Resume ai\\models\\adapters\\resumefit-qwen2.5-lora"
+}
