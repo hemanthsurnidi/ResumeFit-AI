@@ -6,11 +6,11 @@
 export function formatScore(score) {
   const num = Number(score) || 0
   const text = `${Math.round(num)}%`
-  let colorClass = 'text-red-400'
-  let bgClass = 'bg-red-900/30'
-  if (num >= 80) { colorClass = 'text-green-400'; bgClass = 'bg-green-900/30' }
-  else if (num >= 60) { colorClass = 'text-yellow-400'; bgClass = 'bg-yellow-900/30' }
-  else if (num >= 40) { colorClass = 'text-orange-400'; bgClass = 'bg-orange-900/30' }
+  let colorClass = 'text-red-700 font-bold'
+  let bgClass = 'bg-red-100'
+  if (num >= 80) { colorClass = 'text-[#0e4513] font-bold'; bgClass = 'bg-[#d8eed4]' }
+  else if (num >= 60) { colorClass = 'text-amber-800 font-bold'; bgClass = 'bg-amber-100' }
+  else if (num >= 40) { colorClass = 'text-orange-800 font-bold'; bgClass = 'bg-orange-100' }
   return { text, colorClass, bgClass }
 }
 
@@ -42,19 +42,19 @@ export function truncateText(text, maxLength = 100) {
 }
 
 /**
- * Map an action priority string to a Tailwind color class set.
+ * Map an action priority string to a high-contrast Tailwind color class set.
  * @param {'high'|'medium'|'low'} priority
  * @returns {{ badge: string, border: string, text: string }}
  */
 export function getPriorityColor(priority) {
   switch ((priority || '').toLowerCase()) {
     case 'high':
-      return { badge: 'bg-red-900/40 text-red-300 border-red-700', border: 'border-red-700/40', text: 'text-red-300' }
+      return { badge: 'bg-red-100 text-red-800 border-red-300 font-bold', border: 'border-red-300', text: 'text-red-900 font-bold' }
     case 'medium':
-      return { badge: 'bg-yellow-900/40 text-yellow-300 border-yellow-700', border: 'border-yellow-700/40', text: 'text-yellow-300' }
+      return { badge: 'bg-amber-100 text-amber-900 border-amber-300 font-bold', border: 'border-amber-300', text: 'text-amber-950 font-bold' }
     case 'low':
     default:
-      return { badge: 'bg-blue-900/40 text-blue-300 border-blue-700', border: 'border-blue-700/40', text: 'text-blue-300' }
+      return { badge: 'bg-blue-100 text-blue-900 border-blue-300 font-bold', border: 'border-blue-300', text: 'text-blue-950 font-bold' }
   }
 }
 

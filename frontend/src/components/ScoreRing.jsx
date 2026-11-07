@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 
 /**
- * Animated circular score ring.
+ * Animated circular score ring with high-contrast text.
  * @param {{ score: number, size?: number, strokeWidth?: number, label?: string }} props
  */
 export default function ScoreRing({ score = 0, size = 120, strokeWidth = 10, label = '' }) {
@@ -10,11 +10,11 @@ export default function ScoreRing({ score = 0, size = 120, strokeWidth = 10, lab
   const circumference = 2 * Math.PI * radius
   const clampedScore = Math.max(0, Math.min(100, Number(score) || 0))
 
-  // Color based on score
-  let color = '#ef4444' // red
-  if (clampedScore >= 80) color = '#10b981'      // green
-  else if (clampedScore >= 60) color = '#f59e0b' // yellow
-  else if (clampedScore >= 40) color = '#f97316' // orange
+  // High-contrast color based on score
+  let color = '#b91c1c' // red-700
+  if (clampedScore >= 80) color = '#15803d'      // green-700
+  else if (clampedScore >= 60) color = '#b45309' // amber-700
+  else if (clampedScore >= 40) color = '#c2410c' // orange-700
 
   useEffect(() => {
     if (!circleRef.current) return
@@ -37,7 +37,7 @@ export default function ScoreRing({ score = 0, size = 120, strokeWidth = 10, lab
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#1f2937"
+          stroke="#d5e5d3"
           strokeWidth={strokeWidth}
         />
         {/* Animated foreground */}
@@ -52,7 +52,7 @@ export default function ScoreRing({ score = 0, size = 120, strokeWidth = 10, lab
           strokeLinecap="round"
           strokeDasharray={circumference}
           strokeDashoffset={circumference}
-          style={{ transition: 'stroke-dashoffset 1s ease-in-out', filter: `drop-shadow(0 0 6px ${color}66)` }}
+          style={{ transition: 'stroke-dashoffset 1s ease-in-out' }}
         />
         {/* Score text — counter-rotate so it reads normally */}
         <text
@@ -62,14 +62,14 @@ export default function ScoreRing({ score = 0, size = 120, strokeWidth = 10, lab
           dominantBaseline="middle"
           fill={color}
           fontSize={size * 0.22}
-          fontWeight="700"
+          fontWeight="800"
           style={{ transform: `rotate(90deg)`, transformOrigin: '50% 50%', fontFamily: 'inherit' }}
         >
           {clampedScore}%
         </text>
       </svg>
       {label && (
-        <span className="text-xs font-medium text-gray-400 text-center leading-tight">{label}</span>
+        <span className="text-xs font-bold text-[#1f4823] text-center leading-tight">{label}</span>
       )}
     </div>
   )
