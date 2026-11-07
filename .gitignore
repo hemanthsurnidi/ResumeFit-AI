@@ -128,3 +128,7 @@ runs/
 *~
 .project
 .classpath
+
+# Uploads
+uploads/*
+!uploads/.gitkeep
