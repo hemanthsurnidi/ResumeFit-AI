@@ -15,15 +15,15 @@ export default function Navbar() {
   const navigate = useNavigate()
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur border-b border-gray-800">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#08160c]/95 backdrop-blur-md border-b border-[#1c3820]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="p-1.5 rounded-lg bg-gradient-to-br from-blue-600 to-purple-600 group-hover:from-blue-500 group-hover:to-purple-500 transition-all">
-              <Bot size={20} className="text-white" />
+            <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#2f6a33] to-[#488e4c] group-hover:from-[#3a7c3e] group-hover:to-[#55a359] transition-all border border-[#529456]/40 shadow-sm shadow-[#1b431e]/40">
+              <Bot size={20} className="text-[#e8f7e8]" />
             </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+            <span className="text-lg font-bold bg-gradient-to-r from-[#bbf7d0] via-[#a7f3d0] to-[#86efac] bg-clip-text text-transparent">
               ResumeFit AI
             </span>
           </Link>
@@ -37,8 +37,8 @@ export default function Navbar() {
                 className={({ isActive }) =>
                   `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-blue-600/20 text-blue-400 border border-blue-600/30'
-                      : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800'
+                      ? 'bg-[#1a381f] text-[#86efac] border border-[#386b3e] shadow-sm'
+                      : 'text-[#82a87d] hover:text-[#d3f2cc] hover:bg-[#122816]'
                   }`
                 }
               >
@@ -50,14 +50,21 @@ export default function Navbar() {
 
           {/* CTA + settings */}
           <div className="hidden md:flex items-center gap-2">
-            <NavLink to="/settings" className={({ isActive }) =>
-              `p-2 rounded-lg transition-all ${isActive ? 'text-blue-400 bg-blue-900/30' : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800'}`
-            }>
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                `p-2 rounded-lg transition-all ${
+                  isActive
+                    ? 'text-[#86efac] bg-[#1a381f] border border-[#386b3e]'
+                    : 'text-[#82a87d] hover:text-[#d3f2cc] hover:bg-[#122816]'
+                }`
+              }
+            >
               <Settings size={18} />
             </NavLink>
             <button
               onClick={() => navigate('/analyze')}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white text-sm font-semibold transition-all shadow-lg shadow-blue-900/30"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-[#2f6a33] via-[#3a7c3e] to-[#488e4c] hover:from-[#377a3c] hover:to-[#55a359] text-[#f0faf1] text-sm font-semibold transition-all shadow-md shadow-[#143217]/50 border border-[#529756]/60"
             >
               Analyze Resume
               <ChevronRight size={15} />
@@ -66,7 +73,7 @@ export default function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition"
+            className="md:hidden p-2 rounded-lg text-[#82a87d] hover:text-[#d3f2cc] hover:bg-[#122816] transition"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
@@ -77,7 +84,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden bg-gray-900 border-t border-gray-800 px-4 pb-4">
+        <div className="md:hidden bg-[#09170d] border-t border-[#1c3820] px-4 pb-4">
           <div className="flex flex-col gap-1 mt-2">
             {NAV_LINKS.map(({ to, label, icon: Icon }) => (
               <NavLink
@@ -87,8 +94,8 @@ export default function Navbar() {
                 className={({ isActive }) =>
                   `flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-blue-600/20 text-blue-400'
-                      : 'text-gray-400 hover:text-gray-100 hover:bg-gray-800'
+                      ? 'bg-[#1a381f] text-[#86efac] border border-[#386b3e]'
+                      : 'text-[#82a87d] hover:text-[#d3f2cc] hover:bg-[#122816]'
                   }`
                 }
               >
@@ -97,8 +104,11 @@ export default function Navbar() {
               </NavLink>
             ))}
             <button
-              onClick={() => { navigate('/analyze'); setMenuOpen(false) }}
-              className="mt-2 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-semibold"
+              onClick={() => {
+                navigate('/analyze')
+                setMenuOpen(false)
+              }}
+              className="mt-2 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-gradient-to-r from-[#2f6a33] to-[#488e4c] text-white text-sm font-semibold border border-[#529756]"
             >
               Analyze Resume <ChevronRight size={15} />
             </button>

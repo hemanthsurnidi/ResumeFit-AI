@@ -12,17 +12,17 @@ import SettingsPage from './pages/SettingsPage'
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
+    <div className="min-h-screen bg-[#061209] text-[#e2f0e4]">
       <Toaster
         position="top-right"
         toastOptions={{
           style: {
-            background: '#1f2937',
-            color: '#f9fafb',
-            border: '1px solid #374151',
+            background: '#0d2212',
+            color: '#e8faeb',
+            border: '1px solid #2d5531',
           },
-          success: { iconTheme: { primary: '#10b981', secondary: '#fff' } },
-          error: { iconTheme: { primary: '#ef4444', secondary: '#fff' } },
+          success: { iconTheme: { primary: '#4ade80', secondary: '#09170d' } },
+          error: { iconTheme: { primary: '#f87171', secondary: '#09170d' } },
         }}
       />
       <Routes>
