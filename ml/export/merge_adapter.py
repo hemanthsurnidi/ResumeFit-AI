@@ -50,3 +50,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     merge_and_export(args.base_model, args.adapter_path, args.output_path)
+

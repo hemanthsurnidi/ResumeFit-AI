@@ -85,3 +85,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     push_adapter_to_hub(args.adapter_dir, args.repo_id, args.token)
+
